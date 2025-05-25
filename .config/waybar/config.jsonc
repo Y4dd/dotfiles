@@ -1,11 +1,14 @@
 {
   "layer": "top",
   "position": "top",
-  /* Center Modules */
+  "modules-left": [
+    "group/power",
+    "group/stats",
+    "clock"
+  ],
   "modules-center": [
     "hyprland/workspaces"
   ],
-  /* Right Modules */
   "modules-right": [
     "pulseaudio",
     "network",
@@ -46,6 +49,7 @@
     },
     "modules": [
       "custom/powerbutton",
+      "custom/sleepbutton",
       "custom/lockbutton",
       "custom/rebootbutton"
     ]
@@ -65,14 +69,13 @@
     "tooltip": false,
     "on-click": "shutdown now"
   },
-  /* Left Modules */
-  "modules-left": [
-    "group/power",
-    "clock",
-    "group/stats"
-  ],
+  "custom/sleepbutton": {
+    "format": "󰤄",
+    "tooltip": false,
+    "on-click": "systemctl suspend"
+  },
   "clock": {
-    "format": "󰥔 {:%I:%M %p}"
+    "format": "󰥔 {:%I:%M %p 󰸘 %F}"
   },
   "group/stats": {
     "orientation": "horizontal",

@@ -46,9 +46,9 @@ return {
   -- require "plugins.dap.lua",
   -- Tools
   require "plugins.tools.resession",
-  require "plugins.tools.overseer",
   require "plugins.tools.toggleterm",
   require "plugins.tools.leetcode",
+  require "plugins.tools.overseer.overseer",
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewRefresh" },
@@ -61,6 +61,11 @@ return {
   require "plugins.ai.avante",
   require "plugins.ai.mcphub",
 
+  {
+    "Hoffs/omnisharp-extended-lsp.nvim",
+    lazy = true,
+    ft = { "cs", "vb" },
+  },
   -- Lint
   -- {
   --   "mfussenegger/nvim-lint",
@@ -76,5 +81,4 @@ return {
   --   config = function()
   --     require "configs.mason-lint"
   --   end,
-  -- },
 }

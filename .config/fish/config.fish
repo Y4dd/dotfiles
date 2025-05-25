@@ -2,6 +2,10 @@ if test -f ~/.config/fish/env.fish
   source ~/.config/fish/env.fish
 end
 
+if test -f ~/.config/fish/paths.fish
+  source ~/.config/fish/paths.fish
+end
+
 fish_vi_key_bindings
 if not set -q __theme_set
     fish_config theme choose "jellybeans"
@@ -14,13 +18,10 @@ end
 
 set fish_greeting ""
 
-set -gx PATH $HOME/.npm-global/bin $PATH
-
 # This assumes fzf is installed
 set -q EDITOR; or set -gx EDITOR nvim
 set fzf_directory_opts --bind "ctrl-n:execute($EDITOR {} &> /dev/tty)"
 
-set -gx PATH $HOME/.ghcup/bin /home/amjadw/.local/bin $HOME/.npm-global/bin $PATH
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
@@ -28,9 +29,6 @@ if test -z $ASDF_DATA_DIR
 else
     set _asdf_shims "$ASDF_DATA_DIR/shims"
 end
-
-# Do not use fish_add_path (added in Fish 3.2) because it
-# potentially changes the order of items in PATH
 if not contains $_asdf_shims $PATH
     set -gx --prepend PATH $_asdf_shims
 end

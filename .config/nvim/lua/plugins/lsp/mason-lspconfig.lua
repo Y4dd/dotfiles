@@ -29,6 +29,7 @@ return {
       "gopls",
       "lua_ls",
       "basedpyright",
+      "omnisharp",
     }
 
     mason_lspconfig.setup {
@@ -45,6 +46,8 @@ return {
       ["gopls"] = "plugins.lsp.servers.gopls",
       ["lua_ls"] = "plugins.lsp.servers.lua_ls",
       ["basedpyright"] = "plugins.lsp.servers.basedpyright",
+      ["ts_ls"] = "plugins.lsp.servers.ts_ls",
+      ["omnisharp"] = "plugins.lsp.servers.omnisharp",
     }
 
     for _, server_name in ipairs(ensure_installed_servers) do

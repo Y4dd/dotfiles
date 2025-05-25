@@ -1,4 +1,4 @@
-local lspconfig = require "lspconfig"
+local util = require "lspconfig.util"
 local handlers = require "plugins.lsp.handlers"
 
 vim.lsp.config("gopls", {
@@ -11,7 +11,7 @@ vim.lsp.config("gopls", {
   capabilities = handlers.capabilities(),
   cmd = { "gopls" },
   filetypes = { "go", "gomod", "gotmpl", "gowork" },
-  root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
   settings = {
     gopls = {
       analyses = {
