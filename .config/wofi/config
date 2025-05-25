@@ -1,0 +1,10 @@
+mode=drun
+allow_images=true
+image_size=25
+term=alacritty
+insensitive=true
+location=center
+columns=2
+lines=15
+width=30%
+

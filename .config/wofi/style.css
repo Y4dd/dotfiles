@@ -1,0 +1,51 @@
+window {
+  margin: 0px;
+  border: 1px solid #36342a;
+  background-color: #191813;
+}
+
+#input {
+  margin: 5px;
+  border: none;
+  color: #f9de74;
+  background-color: #36342a;
+}
+
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: #191813;
+}
+
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: #191813;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #f9de74;
+}
+
+#entry:selected {
+  background-color: #f9de74;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+}
+
+#entry:selected #text {
+  color: #36342a;
+  transition: color 0.3s ease;
+}
+
+#entry:selected #text {
+  color: #36342a;
+  transition: color 0.3s ease;
+}
