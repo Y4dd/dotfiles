@@ -6,6 +6,10 @@ if test -f ~/.config/fish/paths.fish
   source ~/.config/fish/paths.fish
 end
 
+if test -f ~/.config/fish/binds.fish
+  source ~/.config/fish/binds.fish
+end
+
 fish_vi_key_bindings
 if not set -q __theme_set
     fish_config theme choose "jellybeans"
@@ -35,10 +39,6 @@ end
 set --erase _asdf_shims
 
 set -gx TERMINAL alacritty
-
-if test (uwsm check may-start)
-    exec uwsm start default
-end
 
 set _sun_dark 36342a
 set _sun_yellow f9de74
