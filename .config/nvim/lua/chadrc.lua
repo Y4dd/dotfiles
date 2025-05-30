@@ -22,6 +22,10 @@ M.term = {
   },
 }
 
+M.lsp = {
+  signature = false,
+}
+
 -- M.ui = {
 --   tabufline = {
 --     enabled = false,

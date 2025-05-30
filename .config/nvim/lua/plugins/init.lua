@@ -1,6 +1,5 @@
 return {
   -- UI & Theming
-  -- require "plugins.ui.dressing",
   require "plugins.ui.noice",
   require "plugins.ui.tmux-navigator",
   require "plugins.ui.nvim-tree",
@@ -12,20 +11,10 @@ return {
     "petertriho/nvim-scrollbar",
     lazy = false,
     config = function()
-      require("scrollbar").setup {}
-      require("scrollbar.handlers.gitsigns").setup {}
+      require("scrollbar").setup()
+      require("scrollbar.handlers.gitsigns").setup()
     end,
   },
-  -- {
-  --   "nanozuki/tabby.nvim",
-  --   event = "VimEnter",
-  --   dependencies = "nvim-tree/nvim-web-devicons",
-  --   config = function()
-  --     require "configs.tabby"
-  --   end,
-  -- },
-  --
-  --
   -- Editing & Syntax
   require "plugins.editing.telescope",
   require "plugins.editing.treesitter",
@@ -35,15 +24,17 @@ return {
   { "echasnovski/mini.surround", lazy = false, opts = {} },
   { "echasnovski/mini.align", lazy = false, opts = {} },
   { "echasnovski/mini.splitjoin", lazy = false, opts = {} },
+  { "echasnovski/mini.comment", lazy = false, opts = {} },
+  { "echasnovski/mini.ai", lazy = false, opts = {} },
   -- { "echasnovski/mini.notify", lazy = false, opts = {} },
   -- LSP & Completion
   require "plugins.lsp.lspconfig",
-  require "plugins.lsp.mason-lspconfig",
   require "plugins.linting.linting",
-  -- require "plugins.dap.core",
-  -- require "plugins.dap.go",
-  -- require "plugins.dap.python",
-  -- require "plugins.dap.lua",
+  require "plugins.dap.core",
+  require "plugins.dap.csharp",
+  require "plugins.dap.go",
+  require "plugins.dap.python",
+  require "plugins.dap.lua",
   -- Tools
   require "plugins.tools.resession",
   require "plugins.tools.toggleterm",
@@ -52,9 +43,6 @@ return {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewRefresh" },
-  },
-  {
-    "ahmedkhalf/project.nvim",
   },
 
   -- AI
@@ -66,19 +54,4 @@ return {
     lazy = true,
     ft = { "cs", "vb" },
   },
-  -- Lint
-  -- {
-  --   "mfussenegger/nvim-lint",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   config = function()
-  --     require "configs.lint"
-  --   end,
-  -- },
-  -- {
-  --   "rshkarin/mason-nvim-lint",
-  --   event = "VeryLazy",
-  --   dependencies = { "nvim-lint" },
-  --   config = function()
-  --     require "configs.mason-lint"
-  --   end,
 }

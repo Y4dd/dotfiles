@@ -23,11 +23,16 @@ return {
         go = { "gofumpt", "golines" },
         rust = { "rustfmt" },
         toml = { "taplo" },
+        cs = { "csharpier" },
       },
 
       formatters = {
         golines = {
           prepend_args = { "--max-len=80" },
+        },
+        csharpier = {
+          command = "csharpier",
+          args = { "format", "--write-stdout" },
         },
         -- black = {
         --   prepend_args = { "--fast", "--line-length", "80" },
