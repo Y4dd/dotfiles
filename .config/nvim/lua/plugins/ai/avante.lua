@@ -25,27 +25,36 @@ return {
     },
   },
   opts = {
-    provider = "gemini_preview",
-    cursor_applying_provider = "groq",
-    behaviour = {
-      enable_cursor_planning_mode = true,
-    },
-    vendors = {
-      gemini_preview = {
+    provider = "gemini_flash_preview",
+    -- cursor_applying_provider = "groq",
+    -- behaviour = {
+    --   enable_cursor_planning_mode = true,
+    -- },
+    providers = {
+      gemini_flash_preview = {
         __inherited_from = "gemini",
-        model = "gemini-2.5-flash-preview-04-17",
+        model = "gemini-2.5-flash-preview-05-20",
+        extra_request_body = {
+          reasoning_effort = "low",
+        },
+      },
+      gemini_pro_experimental = {
+        __inherited_from = "gemini",
+        model = "gemini-2.5-pro-exp-03-25",
+      },
+      gemini_pro_preview = {
+        __inherited_from = "gemini",
+        model = "gemini-2.5-pro-preview-06-05",
       },
       groq = { -- define groq provider
         __inherited_from = "openai",
         api_key_name = "GROQ_API_KEY",
         endpoint = "https://api.groq.com/openai/v1/",
         model = "llama-3.3-70b-versatile",
-        max_completion_tokens = 32768,
+        extra_request_body = {
+          max_completion_tokens = 32768,
+        },
       },
-    },
-    gemini = {
-      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-      model = "gemini-2.5-flash-preview-04-17",
     },
     system_prompt = function()
       local hub = require("mcphub").get_hub_instance()

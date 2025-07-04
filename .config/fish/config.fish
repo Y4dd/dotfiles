@@ -1,3 +1,6 @@
+# =========================================
+# ---------- File initialization ----------
+# =========================================
 if test -f ~/.config/fish/env.fish
   source ~/.config/fish/env.fish
 end
@@ -10,6 +13,9 @@ if test -f ~/.config/fish/binds.fish
   source ~/.config/fish/binds.fish
 end
 
+# ================================
+# ---------- Basic fish ----------
+# ================================
 fish_vi_key_bindings
 if not set -q __theme_set
     fish_config theme choose "jellybeans"
@@ -21,13 +27,18 @@ if status is-interactive
 end
 
 set fish_greeting ""
+set -gx TERMINAL alacritty
+zoxide init --cmd cd fish | source
+direnv hook fish | source
 
 # This assumes fzf is installed
 set -q EDITOR; or set -gx EDITOR nvim
 set fzf_directory_opts --bind "ctrl-n:execute($EDITOR {} &> /dev/tty)"
 
 
-# ASDF configuration code
+# =========================================
+# ---------- ASDF Configuration -----------
+# =========================================
 if test -z $ASDF_DATA_DIR
     set _asdf_shims "$HOME/.asdf/shims"
 else
@@ -38,8 +49,10 @@ if not contains $_asdf_shims $PATH
 end
 set --erase _asdf_shims
 
-set -gx TERMINAL alacritty
 
+# ===================================
+# ---------- Theme config -----------
+# ===================================
 set _sun_dark 36342a
 set _sun_yellow f9de74
 

@@ -11,4 +11,11 @@ vim.wo.relativenumber = true
 
 vim.opt.laststatus = 3
 
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.wo.foldlevel = 99
+vim.wo.foldnestmax = 4
+
+vim.o.scrolloff = 8
+
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

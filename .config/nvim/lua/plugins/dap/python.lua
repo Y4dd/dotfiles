@@ -2,7 +2,7 @@ return {
   "mfussenegger/nvim-dap-python",
   ft = "python",
   dependencies = { "mfussenegger/nvim-dap" },
-  opts = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python",
+  opts = vim.fn.stdpath "data" .. "/mason/packages/debugpy/venv/bin/python3",
   keys = {
     {
       "<leader>dpr",

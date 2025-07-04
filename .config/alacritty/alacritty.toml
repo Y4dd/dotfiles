@@ -7,6 +7,8 @@ general.import = [
 
 [env]
 TERM = "alacritty"
+BROWSER = "firefox"
+
 [font]
 normal = { family = "JetBrainsMono NerdFont", style = "Regular" }
 
