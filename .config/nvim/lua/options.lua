@@ -18,4 +18,7 @@ vim.wo.foldnestmax = 4
 
 vim.o.scrolloff = 8
 
+vim.g.loaded_python3_provider = nil
+vim.g.python3_host_prog = vim.fn.expand "~/.virtualenvs/neovim/bin/python3"
+
 -- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

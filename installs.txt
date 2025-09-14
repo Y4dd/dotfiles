@@ -1,6 +1,7 @@
 1password
 accountsservice
 acpi
+acpica
 alacritty
 alsa-firmware
 alsa-plugins
@@ -26,6 +27,7 @@ bind
 bluez
 bluez-utils
 brave-bin
+brightnessctl
 btrfs-progs
 cantarell-fonts
 certbot
@@ -34,7 +36,6 @@ certbot-nginx
 cliphist
 conky
 cryptsetup
-dbeaver-git
 device-mapper
 dex
 diffutils
@@ -70,6 +71,7 @@ eos-quickstart
 eos-rankmirrors
 eos-settings-i3wm
 ethtool
+evtest
 exfatprogs
 f2fs-tools
 feh
@@ -79,7 +81,7 @@ firefox
 firewalld
 fish
 fisher
-flyctl
+flutter-bin
 galculator
 getnf
 ghcup-hs-bin
@@ -87,6 +89,7 @@ git
 github-cli
 glances
 go
+gparted
 greetd
 grimblast-git
 gst-libav
@@ -113,9 +116,11 @@ i3blocks
 i3lock
 i3status
 inetutils
+intel-gpu-tools
 intel-ucode
 inxi
 iptables-nft
+iw
 iwd
 jdk17-openjdk
 jfsutils
@@ -134,13 +139,16 @@ lightdm-slick-greeter
 linux
 linux-firmware
 linux-headers
+local-by-flywheel-bin
 logrotate
 lsb-release
+lsof
 lsscsi
 luarocks
 lvm2
 man-db
 man-pages
+mariadb
 mdadm
 meld
 mesa-utils
@@ -172,6 +180,7 @@ numlockx
 nvidia
 nvidia-hook
 nvidia-inst
+nvidia-prime
 nvidia-settings
 nwg-look
 obsidian
@@ -191,6 +200,7 @@ polkit-gnome
 poppler-glib
 postman-bin
 power-profiles-daemon
+powerstat
 pv
 python
 python-capng
@@ -199,6 +209,7 @@ python-packaging
 python-pip
 python-pipx
 python-pyqt5
+quarto-cli-bin
 rebuild-detector
 reflector
 reflector-simple
@@ -206,6 +217,7 @@ reiserfsprogs
 rofi
 rofi-emoji
 rofi-greenclip
+rpcs3-git
 rsync
 rtkit
 rustup
@@ -215,9 +227,12 @@ sddm-git
 sddm-sugar-candy-git
 sg3_utils
 smartmontools
+snap-pac
+snapper
 sof-firmware
 spotify
 starship
+steam
 sudo
 superfile
 swaylock
@@ -245,7 +260,9 @@ usb_modeswitch
 usbutils
 uv
 uwsm
+ventoy
 vi
+viu
 waybar
 webapp-manager
 welcome
@@ -269,6 +286,7 @@ xfce4-terminal
 xfsprogs
 xl2tpd
 xorg-server
+xorg-server-xephyr
 xorg-xbacklight
 xorg-xdpyinfo
 xorg-xev

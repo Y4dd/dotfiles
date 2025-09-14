@@ -5,6 +5,4 @@ term=alacritty
 insensitive=true
 location=center
 columns=2
-lines=15
 width=30%
-

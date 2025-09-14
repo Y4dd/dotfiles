@@ -3,6 +3,7 @@ return {
   require "plugins.ui.noice",
   require "plugins.ui.tmux-navigator",
   require "plugins.ui.nvim-tree",
+  require "plugins.ui.image",
   {
     "nvzone/minty",
     cmd = { "Shades", "Hue" },
@@ -40,6 +41,8 @@ return {
   require "plugins.tools.toggleterm",
   require "plugins.tools.leetcode",
   require "plugins.tools.overseer.overseer",
+  require "plugins.tools.jupyter",
+  require "plugins.tools.obsidian",
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewRefresh" },

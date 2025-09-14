@@ -38,18 +38,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- -- Autoclose LazyGit
-vim.api.nvim_create_autocmd({ "TermClose" }, {
-  callback = function(args)
-    if type(vim.g.nvchad_terms) ~= "table" then
-      return
-    end
-
-    local term = vim.g.nvchad_terms[tostring(args.buf)]
-    if term and term["id"] == "lazygit" and vim.api.nvim_buf_is_valid(args.buf) then
-      vim.cmd("bw " .. args.buf)
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "TermClose" }, {
+--   callback = function(args)
+--     if type(vim.g.nvchad_terms) ~= "table" then
+--       return
+--     end
+--
+--     local term = vim.g.nvchad_terms[tostring(args.buf)]
+--     if term and term["id"] == "lazygit" and vim.api.nvim_buf_is_valid(args.buf) then
+--       vim.cmd("bw " .. args.buf)
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*",
@@ -70,4 +70,65 @@ vim.api.nvim_create_autocmd("TermOpen", {
       vim.api.nvim_buf_set_name(buf, "Terminal " .. buf)
     end
   end,
+})
+
+local default_notebook = [[
+  {
+     "cells":[
+        {
+           "cell_type":"markdown",
+           "metadata":{},
+           "source":[""]
+        }
+     ],
+     "metadata":{
+        "author":"Amjad Shomali",
+        "kernelspec":{
+           "display_name":"Python 3",
+           "language":"python",
+           "name":"python3"
+        },
+        "language_info":{
+           "codemirror_mode":{
+              "name":"ipython"
+           },
+           "file_extension":".py",
+           "mimetype":"text/x-python",
+           "name":"python",
+           "nbconvert_exporter":"python",
+           "pygments_lexer":"ipython3",
+           "execute":{
+              "enabled":true,
+              "cache":true
+           },
+           "format":{
+              "html":{
+                 "theme":"cosmo",
+                 "monobackgroundcolor":"#f6f6f6"
+              }
+           }
+        }
+     },
+     "nbformat":4,
+     "nbformat_minor":5
+  }
+]]
+
+local function new_notebook(filename)
+  local path = filename .. ".ipynb"
+  local file = io.open(path, "w")
+  if file then
+    file:write(default_notebook)
+    file:close()
+    vim.cmd("edit " .. path)
+  else
+    print "Error: Could not open new notebook file for writing."
+  end
+end
+
+vim.api.nvim_create_user_command("NewNotebook", function(opts)
+  new_notebook(opts.args)
+end, {
+  nargs = 1,
+  complete = "file",
 })

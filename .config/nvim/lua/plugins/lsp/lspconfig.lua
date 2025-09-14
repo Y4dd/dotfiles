@@ -19,6 +19,7 @@ return {
       "basedpyright",
       "gopls",
       "lua_ls",
+      "dartls",
       -- "angularls",
       -- Custom
       "ts_ls",
@@ -28,6 +29,16 @@ return {
     -- Custom config
     vim.lsp.config("ts_ls", {
       root_markers = { ".git" },
+    })
+
+    vim.lsp.config("basedpyright", {
+      settings = {
+        basedpyright = {
+          analysis = {
+            typeCheckingMode = "basic",
+          },
+        },
+      },
     })
 
     vim.lsp.config("omnisharp", {

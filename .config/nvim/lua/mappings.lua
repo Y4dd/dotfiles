@@ -61,10 +61,10 @@ end, {
 })
 
 map({ "n", "t" }, "<leader>gg", function()
-  require("nvchad.term").runner {
+  require("nvchad.term").toggle {
     pos = "float",
     id = "lazygit",
-    cmd = "lazygit && exit",
+    cmd = "lazygit",
   }
 end, { noremap = true, silent = true, desc = "Open LazyGit Terminal" })
 

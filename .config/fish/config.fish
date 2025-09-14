@@ -27,7 +27,7 @@ if status is-interactive
 end
 
 set fish_greeting ""
-set -gx TERMINAL alacritty
+set -gx TERMINAL kitty
 zoxide init --cmd cd fish | source
 direnv hook fish | source
 
