@@ -27,6 +27,13 @@ return {
       },
     }
 
+    overseer.add_template_hook({
+      module = "^cargo$",
+    }, function(task_defn, util)
+      util.add_component(task_defn, { "on_output_quickfix", open = true })
+      util.remove_component(task_defn, "on_complete_dispose")
+    end)
+
     -- Load all templates from the folder
     local function load_templates()
       local handle = vim.uv.fs_scandir(template_dir)

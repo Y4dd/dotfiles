@@ -13,6 +13,27 @@
   color: #f9de74;
 }
 
+#mode {
+  background-color: #191813;
+  margin: 6px 4px 2px 4px;
+  padding: 4px 16px;
+  border-radius: 18px;
+  color: #f9de74;
+}
+
+#network,
+#custom-mullvad {
+  margin: 0px 6px;
+}
+
+#networkstatus {
+  background-color: #191813;
+  margin: 6px 4px 2px 4px;
+  padding: 4px 16px;
+  border-radius: 18px;
+  color: #f9de74;
+}
+
 #power {
   background-color: #191813;
   margin: 6px 4px 2px 4px;
@@ -35,7 +56,6 @@
 
 #clock,
 #battery,
-#network,
 #pulseaudio {
   background-color: #191813;
   margin: 6px 4px 2px 4px;
@@ -49,7 +69,6 @@
   margin: 6px 4px 2px 4px;
   padding: 4px 8px;
   border-radius: 18px;
-  color: #f9de74;
 }
 
 #workspaces button {
@@ -57,9 +76,10 @@
   margin: 4px 4px;
   background-color: #36342a;
   border-radius: 18px;
+  color: #f9de74;
 }
 
-#workspaces button.active {
+#workspaces button.focused {
   background-color: #f9de74;
   padding: 0px 25px;
   border-radius: 8px;

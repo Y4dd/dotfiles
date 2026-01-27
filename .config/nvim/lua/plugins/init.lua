@@ -22,7 +22,8 @@ return {
   require "plugins.editing.render-markdown",
   require "plugins.editing.conform",
   require "plugins.editing.mason-conform",
-  { "echasnovski/mini.surround", lazy = false, opts = {} },
+  require "plugins.editing.latex",
+  { "echasnovski/mini.surround", lazy = false, opts = { n_lines = 500 } },
   { "echasnovski/mini.align", lazy = false, opts = {} },
   { "echasnovski/mini.splitjoin", lazy = false, opts = {} },
   { "echasnovski/mini.comment", lazy = false, opts = {} },
@@ -43,6 +44,8 @@ return {
   require "plugins.tools.overseer.overseer",
   require "plugins.tools.jupyter",
   require "plugins.tools.obsidian",
+  require "plugins.tools.yazi",
+  require "plugins.tools.strudel",
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewRefresh" },

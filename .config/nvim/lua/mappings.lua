@@ -4,8 +4,8 @@ local unmap = vim.keymap.del
 
 -- Basics
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("n", "<leader>|", ":vsplit<CR>", { desc = "Vertical Split", noremap = true })
-map("n", "<leader>-", ":split<CR>", { desc = "Horizontal Split", noremap = true })
+map("n", "\\", ":vsplit<CR>", { desc = "Vertical Split", noremap = true })
+map("n", "-", ":split<CR>", { desc = "Horizontal Split", noremap = true })
 
 -- Tabs
 map({ "n", "t" }, "<leader>ta", ":$tabnew<CR>", { noremap = true })
@@ -42,7 +42,7 @@ end
 unmap("n", "<leader>h") -- Originally used for NvChad term splits
 unmap("n", "<leader>v")
 
-map("n", "<leader>t|", function()
+map("n", "t\\", function()
   require("nvchad.term").new {
     pos = "vsp",
   }
@@ -51,7 +51,7 @@ end, {
   noremap = true,
 })
 
-map("n", "<leader>t-", function()
+map("n", "t-", function()
   require("nvchad.term").new {
     pos = "sp",
   }

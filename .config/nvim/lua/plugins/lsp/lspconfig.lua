@@ -20,9 +20,11 @@ return {
       "gopls",
       "lua_ls",
       "dartls",
-      -- "angularls",
+      "tailwindcss",
+      "ltex_plus",
       -- Custom
       "ts_ls",
+      "emmet_language_server",
       "omnisharp",
     }
 

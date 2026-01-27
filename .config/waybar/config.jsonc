@@ -7,13 +7,17 @@
     "clock"
   ],
   "modules-center": [
-    "hyprland/workspaces"
+    "sway/workspaces"
   ],
   "modules-right": [
+    "sway/mode",
     "pulseaudio",
-    "network",
+    "group/networkstatus",
     "battery"
   ],
+  "sway/workspaces": {
+    "format": "{name}"
+  },
   "pulseaudio": {
     "format": "{icon}  {volume}%",
     "format-muted": "",
@@ -30,7 +34,22 @@
     "format-ethernet": "󰈀 Wired",
     "format-disconnected": " Disconnected",
     "on-click": "nm-connection-editor",
-    "on-click-right": "alacritty -e nmtui"
+    "on-click-right": "alacritty -e nmtui",
+    "tooltip": false
+  },
+  "custom/mullvad": {
+    "exec": "mullvad status --json | jq -c 'select(.state==\"connected\") | { text: .details.location.country }'",
+    "return-type": "json",
+    "format": "󰕥 {text}",
+    "interval": 5,
+    "hide-empty-text": true
+  },
+  "group/networkstatus": {
+    "orientation": "horizontal",
+    "modules": [
+      "network",
+      "custom/mullvad"
+    ]
   },
   "battery": {
     "format": "{icon}  {capacity}%",
@@ -58,17 +77,17 @@
   "custom/lockbutton": {
     "format": "󰍁",
     "tooltip": false,
-    "on-click": "uwsm app -- swaylock"
+    "on-click": "swaylock"
   },
   "custom/rebootbutton": {
     "format": "󰜉",
     "tooltip": false,
-    "on-click": "reboot"
+    "on-click": "systemctl reboot"
   },
   "custom/powerbutton": {
     "format": "󰤆",
     "tooltip": false,
-    "on-click": "shutdown now"
+    "on-click": "systemctl poweroff"
   },
   "custom/sleepbutton": {
     "format": "󰤄",
