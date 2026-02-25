@@ -1,0 +1,96 @@
+# Terminal and Apps
+# bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty --title "tmux-term" tmux new-session -A -s main
+bindsym $mod+Shift+Return exec kitty tmux
+bindsym $mod+q kill
+bindsym $mod+p exec 1password
+
+# Rofi/Wofi
+# bindsym $mod+d exec rofi -show drun
+bindsym $mod+d exec ~/.config/wofi/scripts/bang-wrapper.sh
+bindsym $mod+v exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy
+bindsym $mod+Period exec bemoji -t
+
+# Screenshot
+bindsym $mod+s exec grim - | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d-%H%M%S).png | wl-copy && notify-send "Screenshot Saved"
+bindsym $mod+Shift+s exec swaymsg -t get_tree | jq -r '.. | (.nodes? // empty)[] | select(.pid and .visible) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp | xargs -I{} grim -g "{}" - | tee ~/Pictures/Screenshots/$(date +%Y-%m-%d-%H%M%S).png | wl-copy
+
+# Navigation
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Workspaces
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Layout & System
+bindsym $mod+Shift+c reload
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+a layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Multimedia
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl s 10%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+
+# Resize Mode
+mode "resize" {
+    bindsym h resize grow width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize shrink width 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Move a window to the scratchpad (hides it)
+bindsym $mod+Shift+grave move scratchpad
+# Show/cycle through scratchpad windows
+bindsym $mod+grave scratchpad show
+
+set $mode_system (l)ock, (e)xit, (r)eboot, (s)hutdown
+mode "$mode_system" {
+    bindsym l exec swaylock, mode "default"
+    bindsym e exec swaymsg exit
+    bindsym r exec systemctl reboot
+    bindsym s exec systemctl poweroff -i
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+q mode "$mode_system"
+bindsym $mod+F10 exec ~/scripts/toggle_stream_mode.sh
+
+

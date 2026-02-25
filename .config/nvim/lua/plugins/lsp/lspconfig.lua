@@ -22,6 +22,8 @@ return {
       "dartls",
       "tailwindcss",
       "ltex_plus",
+      "typst_lsp",
+      "nil_ls",
       -- Custom
       "ts_ls",
       "emmet_language_server",

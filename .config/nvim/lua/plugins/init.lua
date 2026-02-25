@@ -19,7 +19,7 @@ return {
   -- Editing & Syntax
   require "plugins.editing.telescope",
   require "plugins.editing.treesitter",
-  require "plugins.editing.render-markdown",
+  -- require "plugins.editing.render-markdown",
   require "plugins.editing.conform",
   require "plugins.editing.mason-conform",
   require "plugins.editing.latex",
@@ -45,7 +45,8 @@ return {
   require "plugins.tools.jupyter",
   require "plugins.tools.obsidian",
   require "plugins.tools.yazi",
-  require "plugins.tools.strudel",
+  require "plugins.tools.markview",
+  -- require "plugins.tools.strudel",
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewRefresh" },

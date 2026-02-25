@@ -1,0 +1,31 @@
+# Hardware specific settings
+xwayland enable
+
+output eDP-1 {
+  mode 1920x1080@144Hz 
+  position 0 0
+  allow_tearing on
+  adaptive_sync off
+  bg ~/Pictures/Wallpapers/school_of_athens.jpg fill
+}
+
+output HEADLESS-1 {
+  resolution 1920x1080
+  position 0 1080
+  bg "#000000" solid_color
+  disable
+}
+
+workspace $ws0 output eDP-1
+workspace $ws1 output eDP-1
+workspace $ws2 output eDP-1
+workspace $ws3 output eDP-1
+workspace $ws4 output eDP-1
+workspace $ws5 output eDP-1
+workspace $ws6 output eDP-1
+workspace $ws7 output eDP-1
+workspace $ws8 output eDP-1
+workspace $ws9 output eDP-1
+workspace $ws10 output HEADLESS-1
+
+

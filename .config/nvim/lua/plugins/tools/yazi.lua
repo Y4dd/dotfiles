@@ -32,8 +32,9 @@ return ---@type LazySpec
     open_for_directories = false,
     keymaps = {
       show_help = "<f1>",
-      open_file_in_horizontal_split = "-",
-      open_file_in_vertical_split = "\\",
+      open_file_in_horizontal_split = "<leader>-",
+      open_file_in_vertical_split = "<leader>\\",
+      open_file_in_new_tab = "<leader>t",
     },
   },
   -- 👇 if you use `open_for_directories=true`, this is recommended

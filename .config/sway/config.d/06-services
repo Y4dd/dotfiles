@@ -1,0 +1,7 @@
+exec nm-applet --indicator
+exec swaync
+exec waybar
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec autotiling
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store

@@ -1,0 +1,19 @@
+font pango: JetBrainsMono Nerd Font Bold 10
+gaps inner 4
+gaps outer 8
+default_border pixel 2
+
+# Colors
+set $active-yellow  #f9de74
+set $light-gold     #fdf2c7
+set $inactive-gold  #4b4323
+set $dark-bg        #36342a
+set $white          #ffffff
+
+# class                 border           bground          text    indicator       child_border
+client.focused          $active-yellow   $active-yellow   $white  $light-gold     $active-yellow
+client.focused_inactive $inactive-gold   $inactive-gold   $white  $inactive-gold  $inactive-gold
+client.unfocused        $inactive-gold   $inactive-gold   $white  $inactive-gold  $inactive-gold
+client.urgent           #ebdbb2          #ebdbb2          $white  #ebdbb2         #ebdbb2
+
+

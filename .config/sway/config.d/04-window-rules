@@ -1,0 +1,21 @@
+# Floating rules
+for_window [class="Pavucontrol"] floating enable
+for_window [class="zoom"] floating enable
+for_window [app_id="thunar"] floating enable
+
+# Automatically move wl-mirror to scratchpad and resize it
+for_window [app_id="at.yrlf.wl_mirror"] {
+    move scratchpad
+    scratchpad show
+    resize set 800 450
+    move position center
+}
+
+
+# Assigning
+assign [app_id="firefox"] $ws2
+assign [class="discord"] $ws3
+assign [class="vesktop"] $ws3
+assign [app_id="steam"] $ws4
+assign [class="Mullvad VPN"] $ws9
+

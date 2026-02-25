@@ -1,5 +1,5 @@
 * {
-  font-family: JetBrainsMono Nerd Font;
+  font-family: "JetBrainsMono Nerd Font Propo", monospace;
   font-size: 15px;
   font-weight: bold;
   background: transparent;
@@ -30,6 +30,14 @@
   background-color: #191813;
   margin: 6px 4px 2px 4px;
   padding: 4px 16px;
+  border-radius: 18px;
+  color: #f9de74;
+}
+
+#custom-notification {
+  background-color: #191813;
+  margin: 6px 4px 2px 4px;
+  padding: 0px 16px;
   border-radius: 18px;
   color: #f9de74;
 }
