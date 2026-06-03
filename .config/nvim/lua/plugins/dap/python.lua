@@ -7,9 +7,9 @@ return {
     {
       "<leader>dpr",
       function()
-        require("python-dap").test_method()
+        require("dap-python").test_method()
       end,
-      { desc = "DAP Python test method" },
+      desc = "DAP Python test method",
     },
   },
 }

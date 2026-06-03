@@ -16,8 +16,8 @@ return {
     pcall(require("telescope").load_extension, "media_files")
   end,
   keys = {
-    { "<A-tab>", "<cmd>Telescope buffers sort_lastused=true<CR>", { desc = "Telescope: Find buffers" } },
-    { "<leader>fs", "<cmd>Telescope resession<CR>", { desc = "Telescope: Find sessions" } },
-    { "<leader>fp", "<cmd>Telescope projects<CR>", { desc = "Telescope: Recent projects" } },
+    { "<A-tab>", "<cmd>Telescope buffers sort_lastused=true<CR>", desc = "Telescope: Find buffers" },
+    { "<leader>fs", "<cmd>Telescope resession<CR>", desc = "Telescope: Find sessions" },
+    { "<leader>fp", "<cmd>Telescope projects<CR>", desc = "Telescope: Recent projects" },
   },
 }

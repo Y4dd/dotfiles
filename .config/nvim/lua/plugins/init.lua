@@ -10,7 +10,7 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
-    lazy = false,
+    event = "BufReadPost",
     config = function()
       require("scrollbar").setup()
       require("scrollbar.handlers.gitsigns").setup()
@@ -24,12 +24,12 @@ return {
   require "plugins.editing.mason-conform",
   require "plugins.editing.latex",
   require "plugins.editing.typst",
-  { "echasnovski/mini.surround", lazy = false, opts = { n_lines = 500 } },
-  { "echasnovski/mini.align", lazy = false, opts = {} },
-  { "echasnovski/mini.splitjoin", lazy = false, opts = {} },
-  { "echasnovski/mini.comment", lazy = false, opts = {} },
-  { "echasnovski/mini.ai", lazy = false, opts = {} },
-  -- { "echasnovski/mini.notify", lazy = false, opts = {} },
+  { "echasnovski/mini.surround", event = "VeryLazy", opts = { n_lines = 500 } },
+  { "echasnovski/mini.align", event = "VeryLazy", opts = {} },
+  { "echasnovski/mini.splitjoin", event = "VeryLazy", opts = {} },
+  { "echasnovski/mini.comment", event = "VeryLazy", opts = {} },
+  { "echasnovski/mini.ai", event = "VeryLazy", opts = {} },
+  -- { "echasnovski/mini.notify", event = "VeryLazy", opts = {} },
   -- LSP & Completion
   require "plugins.lsp.lspconfig",
   require "plugins.linting.linting",
