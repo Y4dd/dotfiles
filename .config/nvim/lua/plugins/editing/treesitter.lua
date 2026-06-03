@@ -80,4 +80,22 @@ return {
     },
   },
   build = ":TSUpdate",
+  config = function(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+    -- nvim-treesitter is archived and its directive handlers break on nvim 0.12+:
+    -- match[capture_id] now returns TSNode[] instead of a single TSNode, so
+    -- calling get_node_text on the array hits a nil :range() method.
+    -- Force-load query_predicates first so our override runs after theirs.
+    require("nvim-treesitter.query_predicates")
+    vim.treesitter.query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+      local nodes = match[pred[2]]
+      if not nodes then return end
+      local node = type(nodes[1]) ~= "nil" and nodes[1] or nodes
+      if not node or type(node.range) ~= "function" then return end
+      local alias = vim.treesitter.get_node_text(node, bufnr):lower()
+      local lang = vim.filetype.match({ filename = "a." .. alias })
+      local aliases = { ex = "elixir", pl = "perl", sh = "bash", uxn = "uxntal", ts = "typescript" }
+      metadata["injection.language"] = lang or aliases[alias] or alias
+    end, { force = true })
+  end,
 }

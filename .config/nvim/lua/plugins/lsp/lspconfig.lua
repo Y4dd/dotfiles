@@ -22,7 +22,7 @@ return {
       "dartls",
       "tailwindcss",
       "ltex_plus",
-      "typst_lsp",
+      "tinymist",
       "nil_ls",
       -- Custom
       "ts_ls",

@@ -23,6 +23,7 @@ return {
   require "plugins.editing.conform",
   require "plugins.editing.mason-conform",
   require "plugins.editing.latex",
+  require "plugins.editing.typst",
   { "echasnovski/mini.surround", lazy = false, opts = { n_lines = 500 } },
   { "echasnovski/mini.align", lazy = false, opts = {} },
   { "echasnovski/mini.splitjoin", lazy = false, opts = {} },
@@ -46,6 +47,7 @@ return {
   require "plugins.tools.obsidian",
   require "plugins.tools.yazi",
   require "plugins.tools.markview",
+  require "plugins.tools.rsync",
   -- require "plugins.tools.strudel",
   {
     "sindrets/diffview.nvim",
