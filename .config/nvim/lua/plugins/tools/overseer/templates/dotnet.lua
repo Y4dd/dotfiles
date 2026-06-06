@@ -6,7 +6,7 @@ return {
     name = "Build",
     builder = function(params)
       return {
-        cmd = "dotnet build  " .. params.project,
+        cmd = { "dotnet", "build", params.project },
         components = {
           "default",
           "unique",
@@ -51,7 +51,7 @@ return {
     name = "Run",
     builder = function(params)
       return {
-        cmd = "dotnet run --project " .. params.project,
+        cmd = { "dotnet", "run", "--project", params.project },
         components = {
           "default",
           "unique",

@@ -53,7 +53,6 @@ end
 
 return {
   "nvim-tree/nvim-tree.lua",
-  -- cmd = "NvimTreeToggle", -- Or other NvimTree commands for lazy loading
   opts = {
     on_attach = mapped_on_attach,
     sync_root_with_cwd = true,

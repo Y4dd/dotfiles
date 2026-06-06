@@ -21,7 +21,6 @@ return {
   require "plugins.editing.treesitter",
   -- require "plugins.editing.render-markdown",
   require "plugins.editing.conform",
-  require "plugins.editing.mason-conform",
   require "plugins.editing.latex",
   require "plugins.editing.typst",
   { "echasnovski/mini.surround", event = "VeryLazy", opts = { n_lines = 500 } },

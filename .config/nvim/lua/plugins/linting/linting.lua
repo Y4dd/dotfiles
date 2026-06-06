@@ -22,16 +22,8 @@ return {
       end,
     })
 
-    -- Install every linter referenced above, deduped.
-    local ensure_installed = {}
-    for _, linters in pairs(lint.linters_by_ft) do
-      for _, linter in ipairs(linters) do
-        ensure_installed[linter] = true
-      end
-    end
-
     require("mason-nvim-lint").setup {
-      ensure_installed = vim.tbl_keys(ensure_installed),
+      ensure_installed = require("utils").tools_from_ft(lint.linters_by_ft),
       automatic_installation = false,
     }
   end,

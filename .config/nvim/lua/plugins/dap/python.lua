@@ -2,7 +2,9 @@ return {
   "mfussenegger/nvim-dap-python",
   ft = "python",
   dependencies = { "mfussenegger/nvim-dap" },
-  opts = vim.fn.stdpath "data" .. "/mason/packages/debugpy/venv/bin/python3",
+  config = function()
+    require("dap-python").setup(vim.fn.stdpath "data" .. "/mason/packages/debugpy/venv/bin/python3")
+  end,
   keys = {
     {
       "<leader>dpr",

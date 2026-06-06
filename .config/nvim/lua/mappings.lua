@@ -8,10 +8,10 @@ map("n", "<leader>\\", ":vsplit<CR>", { desc = "Vertical Split", noremap = true 
 map("n", "<leader>-", ":split<CR>", { desc = "Horizontal Split", noremap = true })
 
 -- Tabs
-map({ "n", "t" }, "<leader>tc", ":$tabnew<CR>", { noremap = true })
-map({ "n", "t" }, "<leader>tx", ":tabclose<CR>", { noremap = true })
-map({ "n", "t" }, "<C-Tab>", ":tabn<CR>", { noremap = true })
-map({ "n", "t" }, "<C-S-Tab>", ":tabp<CR>", { noremap = true })
+map({ "n", "t" }, "<leader>tc", ":$tabnew<CR>", { noremap = true, desc = "Tab: New" })
+map({ "n", "t" }, "<leader>tx", ":tabclose<CR>", { noremap = true, desc = "Tab: Close" })
+map({ "n", "t" }, "<C-Tab>", ":tabn<CR>", { noremap = true, desc = "Tab: Next" })
+map({ "n", "t" }, "<C-S-Tab>", ":tabp<CR>", { noremap = true, desc = "Tab: Previous" })
 
 -- Move to buffer using Alt+bufnr
 for i = 1, 9 do
@@ -22,7 +22,7 @@ for i = 1, 9 do
     else
       vim.notify(string.format("No buffer assigned to Alt-%d", i), vim.log.levels.WARN)
     end
-  end, { silent = true, noremap = true })
+  end, { silent = true, noremap = true, desc = string.format("Buffer: Go to %d", i) })
 end
 
 for i = 1, 9 do
@@ -35,7 +35,7 @@ for i = 1, 9 do
     else
       vim.notify(string.format("No tab assigned to Ctrl-%d", i), vim.log.levels.WARN)
     end
-  end, { silent = true, noremap = true })
+  end, { silent = true, noremap = true, desc = string.format("Tab: Go to %d", i) })
 end
 
 -- Terminal
@@ -67,22 +67,3 @@ map({ "n", "t" }, "<leader>gg", function()
     cmd = "lazygit",
   }
 end, { noremap = true, silent = true, desc = "Open LazyGit Terminal" })
-
--- map({ "i", "n", "t" }, "<A-v>", function()
---   require("toggleterm").toggle(nil, nil, nil, "vertical", "Vertical")
--- end, { desc = "ToggleTerm: New vertical term" })
---
--- map({ "i", "n", "t" }, "<A-h>", function()
---   require("toggleterm").toggle(nil, nil, nil, "horizontal", "Horizontal")
--- end, { desc = "ToggleTerm: New horizontal term" })
---
--- map({ "i", "n", "t" }, "<A-i>", function()
---   require("toggleterm").toggle(nil, nil, nil, "float", "Float")
--- end, { desc = "ToggleTerm: Toggle floating term" })
-
--- map(
---   "n",
---   "<leader>gg",
---   "<cmd>LazyGitToggle<CR>",
---   { noremap = true, silent = true, desc = "ToggleTerm: Open LazyGit Terminal" }
--- )

@@ -1,11 +1,15 @@
 local M = {}
 
-M.get_stdpath = function(path)
-  local stdpath = vim.fn.stdpath(path)
-  if type(stdpath) == "table" then
-    return table.concat(stdpath, "")
+-- Flatten a `*_by_ft` map ({ python = {"ruff"}, ... }) into a deduped list of
+-- tool names, for mason `ensure_installed`.
+M.tools_from_ft = function(by_ft)
+  local set = {}
+  for _, tools in pairs(by_ft) do
+    for _, tool in ipairs(tools) do
+      set[tool] = true
+    end
   end
-  return stdpath
+  return vim.tbl_keys(set)
 end
 
 return M

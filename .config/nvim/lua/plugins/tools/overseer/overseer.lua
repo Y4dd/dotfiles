@@ -13,6 +13,27 @@ return {
   keys = {
     { "<leader>cr", "<cmd>OverseerRun<cr>", desc = "Overseer Run" },
     { "<leader>ct", "<cmd>OverseerToggle<cr>", desc = "Overseer Toggle" },
+    { "<leader>cx", "<cmd>OverseerTaskAction<cr>", desc = "Overseer Task Action" },
+    {
+      "<leader>cl",
+      function()
+        local overseer = require "overseer"
+        local tasks = overseer.list_tasks {}
+        if vim.tbl_isempty(tasks) then
+          return vim.notify("Overseer: no task to restart", vim.log.levels.WARN)
+        end
+        local last = tasks[1]
+        for _, t in ipairs(tasks) do
+          if t.id > last.id then
+            last = t
+          end
+        end
+        last:restart(true)
+      end,
+      desc = "Overseer Restart Last Task",
+    },
+    { "<leader>cS", "<cmd>OverseerSaveBundle<cr>", desc = "Overseer Save Bundle" },
+    { "<leader>cL", "<cmd>OverseerLoadBundle<cr>", desc = "Overseer Load Bundle" },
   },
   config = function()
     local overseer = require "overseer"
@@ -24,6 +45,24 @@ return {
         direction = "vertical",
         size = 100,
         auto_scroll = true,
+      },
+      -- Patch nvim-dap so launch.json preLaunchTask/postDebugTask run as tasks.
+      dap = true,
+      task_list = {
+        direction = "bottom",
+        min_height = 10,
+        max_height = 18,
+        default_detail = 1,
+      },
+      component_aliases = {
+        -- Shared stack for our run/build templates: builtin `default` (status
+        -- + notify + auto-dispose), dedupe re-runs, and stream output to the
+        -- quickfix list. Builtin aliases are preserved (setup deep-merges).
+        run = {
+          "default",
+          "unique",
+          { "on_output_quickfix", open = false },
+        },
       },
     }
 

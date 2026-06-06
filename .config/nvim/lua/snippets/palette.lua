@@ -2,7 +2,7 @@ local ls = require "luasnip"
 local s = ls.snippet
 local f = ls.function_node
 local t = ls.text_node
-local palette = require "configs.pallete"
+local palette = require "configs.palette"
 
 local function expand_single_color_key(args)
   local key = args[2][1]

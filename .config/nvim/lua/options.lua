@@ -1,8 +1,5 @@
 require "nvchad.options"
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
-
 vim.o.expandtab = true
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
@@ -20,6 +17,7 @@ vim.opt.foldnestmax = 4
 
 vim.o.scrolloff = 8
 
+-- NvChad disables the python3 provider for faster startup; molten-nvim needs it.
+-- Deleting the flag re-enables on-demand provider detection against the host below.
+vim.g.loaded_python3_provider = nil
 vim.g.python3_host_prog = vim.fn.expand "~/.virtualenvs/neovim/bin/python3"
-
--- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/bin/**)",
+      "Read(//home/amjadw/.local/share/nvim/mason/packages/debugpy/**)"
+    ]
+  }
+}

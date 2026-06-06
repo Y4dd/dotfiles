@@ -1,7 +1,7 @@
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
-  version = false, -- as per your original config
+  version = false,
   build = "make",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
@@ -26,10 +26,6 @@ return {
   },
   opts = {
     provider = "gemini_flash_preview",
-    -- cursor_applying_provider = "groq",
-    -- behaviour = {
-    --   enable_cursor_planning_mode = true,
-    -- },
     providers = {
       gemini_flash_preview = {
         __inherited_from = "gemini",
@@ -78,9 +74,4 @@ return {
       "bash",
     },
   },
-  -- Example keys section you might want to add:
-  -- keys = {
-  --   { "<leader>aa", function() require("avante.cmd").Avante() end, desc = "Avante Ask" },
-  --   { "<leader>ac", function() require("avante.cmd").AvanteChat() end, desc = "Avante Chat" },
-  -- }
 }
