@@ -25,7 +25,13 @@ require("lazy").setup({
     import = "nvchad.plugins",
   },
 
-  { import = "plugins" },
+  { import = "plugins.ui" },
+  { import = "plugins.editing" },
+  { import = "plugins.lsp" },
+  { import = "plugins.dap" },
+  { import = "plugins.linting" },
+  { import = "plugins.tools" },
+  { import = "plugins.ai" },
 }, lazy_config)
 
 -- load theme

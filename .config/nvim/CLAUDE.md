@@ -17,7 +17,9 @@ behavior by overriding in the files here.
 
 1. Set `base46_cache`, leaders, `lua_snippets_path`.
 2. Bootstrap + `require("lazy").setup` with two imports: the `NvChad/NvChad` spec
-   (`import = "nvchad.plugins"`) and our `{ import = "plugins" }` → `lua/plugins/init.lua`.
+   (`import = "nvchad.plugins"`) and one `{ import = "plugins.<group>" }` line per
+   subdirectory (`ui`, `editing`, `lsp`, `dap`, `linting`, `tools`, `ai`) — lazy
+   auto-discovers every spec file in those dirs (no hand-maintained manifest).
 3. `dofile` the base46 `defaults` + `statusline` caches (applies the theme).
 4. `require "options"` → `require "nvchad.autocmds"` → `require "autocmds"`.
 5. `mappings` is loaded inside `vim.schedule(...)` (deferred to after startup).
@@ -37,23 +39,28 @@ lua/
     palette.lua          color table consumed by the snippets file
   snippets/              luasnip lua-snippet files (loaded via lua_snippets_path)
   plugins/
-    init.lua             THE plugin manifest — every spec is wired here
-    ai/  dap/  editing/  linting/  lsp/  tools/  ui/   one spec (or list) per file
+    ai/  dap/  editing/  linting/  lsp/  tools/  ui/   one spec (or list) per file;
+                         every file is auto-imported (no manifest). Each subdir is
+                         wired by a `{ import = "plugins.<group>" }` line in init.lua.
 after/ftdetect/          custom filetype detection (strudel, terraform)
 ```
 
 ## Plugin wiring convention
 
-`lua/plugins/init.lua` is the single manifest. Every plugin file is pulled in there,
-either as `require "plugins.<group>.<name>"` (a file returning a spec or a list of specs)
-or as an inline `{ ... }` spec. **A plugin file does nothing until it is referenced in
-`plugins/init.lua`** — orphaned files in the tree are dead code. A few files are wired but
-intentionally toggled off via a commented `require` line (e.g. `render-markdown`,
-`strudel`); leave those unless asked. Prefer `enabled = false` in the spec over commenting
-the require if disabling something new.
+There is **no manifest** — lazy auto-imports every `.lua` file under each `plugins/<group>/`
+directory (one `{ import = "plugins.<group>" }` line per group in `init.lua`). **Dropping a
+file in a group dir IS wiring it**; the file must `return` a spec table **or** a list of
+specs (see `editing/mini.lua`, `dap/adapters.lua`, `tools/jupyter.lua`). There are no inline
+specs scattered in an init file anymore — every plugin lives in its own file.
 
-A plugin file may `return` a single spec table **or** a list of specs (see
-`editing/treesitter.lua`, `tools/jupyter.lua`).
+To disable a plugin, set `enabled = false` in its spec (see `editing/render-markdown.lua`,
+`tools/strudel.lua`, `ui/tmuxline.lua`) — **never** delete the file's contents or rely on it
+being "unreferenced", because auto-import has no concept of an orphan: any spec-returning
+file in a group dir loads.
+
+**Nested dirs:** lazy's importer is non-recursive — for a subdirectory it only loads that
+subdir's `init.lua`. So `tools/overseer/` is wired via `tools/overseer/init.lua` (its
+`templates/` dir is plain data the overseer config scans itself, NOT lazy specs).
 
 ## Keymap ownership (single source of truth — keep it this way)
 
@@ -114,9 +121,13 @@ and `linting/linting.lua`. Reuse it instead of re-writing the flatten loop.
 
 - **Formatting**: stylua, config in `.stylua.toml` (2-space indent, 120 cols, double
   quotes, no call parens). Run `stylua lua/` after Lua edits.
+- **Dead plugins → disable, don't delete.** A plugin you've stopped using gets
+  `enabled = false` in its spec (kept as a self-documenting, re-enableable record), NOT
+  removed. This overrides the general "delete dead code" leaning below — it applies
+  specifically to plugin specs. Non-plugin dead code (stale helpers, superseded configs)
+  may still be deleted rather than left as commented-out "graveyards."
 - **Version control**: the user tracks this via a `git dotfiles` bare repo, not a `.git`
-  here. Don't `git init`. Deletions are recoverable; prefer deleting dead code over
-  leaving commented-out "graveyards."
+  here. Don't `git init`. Deletions are recoverable.
 
 ## Verifying changes
 
