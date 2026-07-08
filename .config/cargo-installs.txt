@@ -1,0 +1,2 @@
+mdbook v0.5.2:
+    mdbook

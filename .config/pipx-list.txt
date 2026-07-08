@@ -1,0 +1,4 @@
+headroom-ai 0.26.0
+jupytext 1.19.3
+markitdown 0.1.5
+virtualfish 2.5.9
