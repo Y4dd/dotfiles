@@ -8,11 +8,8 @@ return {
   config = function()
     local lint = require "lint"
 
-    lint.linters_by_ft = {
-      python = { "ruff" },
-      javascript = { "eslint_d" },
-      typescript = { "eslint_d" },
-    }
+    -- All filetypes are routed by the registry (lua/languages.lua).
+    lint.linters_by_ft = require("utils").linters_by_ft(require "languages")
 
     local lint_augroup = vim.api.nvim_create_augroup("CustomNvimLint", { clear = true })
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {

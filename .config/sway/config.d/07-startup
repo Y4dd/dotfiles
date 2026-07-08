@@ -1,4 +1,5 @@
 exec kitty
 exec 1password
 exec firefox
-exec discord
+# exec discord
+exec vesktop

@@ -1,7 +1,17 @@
 # Floating rules
 for_window [class="Pavucontrol"] floating enable
-for_window [class="zoom"] floating enable
 for_window [app_id="thunar"] floating enable
+
+# --- Zoom (runs under XWayland; every window is class="zoom") ---
+# Float every Zoom window by default: controls, chat, participants, popups,
+# notifications, and the small self-view/camera thumbnail.
+for_window [class="zoom"] floating enable
+# Keep the MAIN meeting window TILED. Sway has no always-on-top, so the only
+# reliable way to keep the floating self-view above it is: main = tiled,
+# self-view = floating (a floating window always renders above a tiled one).
+for_window [class="zoom" title="Meeting"] floating disable
+# Optional: let the self-view follow you across workspaces (delete if unwanted).
+for_window [class="zoom" title="^zoom$"] sticky enable
 
 # Automatically move wl-mirror to scratchpad and resize it
 for_window [app_id="at.yrlf.wl_mirror"] {

@@ -33,7 +33,8 @@ lua/
   options.lua            vim options on top of nvchad.options (folds, indent, scrolloff…)
   mappings.lua           GLOBAL keymaps (see Keymap ownership below)
   autocmds.lua           autocmds only (terminal buffer maps, BufDelete→Nvdash, NewNotebook cmd)
-  utils.lua              shared helpers (currently: tools_from_ft)
+  languages.lua          per-language tooling registry — single source of truth (see below)
+  utils.lua              shared helpers (tools_from_ft + the registry derivation fns)
   configs/
     lazy.lua             lazy.nvim setup table (UI, disabled rtp plugins)
     palette.lua          color table consumed by the snippets file
@@ -82,19 +83,103 @@ between LSP rename and Quarto run-above is why this rule exists; rename is now
 a deduped list of tool names for mason `ensure_installed`. Used by `editing/conform.lua`
 and `linting/linting.lua`. Reuse it instead of re-writing the flatten loop.
 
+`utils.formatters_by_ft(langs)` / `utils.linters_by_ft(langs)` / `utils.lsp_servers(langs)` —
+derive conform's `formatters_by_ft`, nvim-lint's `linters_by_ft`, and the LSP server list from
+the `lua/languages.lua` registry (schema in the registry section below). The first two share a
+private `by_ft` core that **asserts on duplicate filetypes** (see collision guard below).
+
 ## Tooling pipelines
 
-- **Formatting**: `editing/conform.lua` owns conform.nvim; `formatters_by_ft` drives both
-  formatting and (via `tools_from_ft`) mason-conform auto-install. format-on-save is on.
-- **Linting**: `linting/linting.lua` owns nvim-lint + mason-nvim-lint; same pattern.
-  (There is exactly ONE lint config — earlier duplicate files under `configs/` were dead
-  and removed.)
-- **LSP**: `lsp/lspconfig.lua` lists servers in `servers` and calls `vim.lsp.enable`.
-  Per-server overrides via `vim.lsp.config(name, {...})`. Mason provides the binaries.
+- **Formatting**: `editing/conform.lua` owns conform.nvim. `formatters_by_ft` is **derived
+  from `lua/languages.lua`** (registry section below); it drives both formatting and (via
+  `tools_from_ft`) mason-conform auto-install. format-on-save is on.
+- **Linting**: `linting/linting.lua` owns nvim-lint + mason-nvim-lint; `linters_by_ft` is
+  **derived from `lua/languages.lua`** the same way. (There is exactly ONE lint config —
+  earlier duplicate files under `configs/` were dead and removed.)
+- **LSP**: `lsp/lspconfig.lua` enables `extra_servers` (the pure LSP-only servers) **plus the
+  servers derived from `lua/languages.lua`**, via `vim.lsp.enable`. Per-server overrides via
+  `vim.lsp.config(name, {...})`. Mason provides the binaries.
 - **Treesitter**: uses the **`main`** branch (not legacy `master`). Highlight + install are
   driven by NvChad's core; this file only extends the parser list and owns textobjects.
   Requires the `tree-sitter` CLI on PATH. Folds are native (`vim.treesitter.foldexpr` in
   `options.lua`).
+
+## Per-language tooling registry (`lua/languages.lua`)
+
+**Single source of truth for which tools a language uses.** Rather than repeat "python →
+ruff / basedpyright / debugpy" across conform, nvim-lint, and lspconfig, each language is
+declared **once** here and the three consumers derive their tables from it (via the
+`utils.*_by_ft` / `utils.lsp_servers` helpers). Adding a language is a one-entry edit, not a
+multi-file hunt.
+
+The registry holds **routing only** — tool *names*, never tool *config*. Entries are keyed by
+a logical language name; every field is optional:
+
+| field        | type   | effect                                                          |
+|--------------|--------|-----------------------------------------------------------------|
+| `filetypes`  | list   | filetypes this entry applies to (**default `{ <key> }`**)       |
+| `lsp`        | string | server name → added to `vim.lsp.enable`                         |
+| `formatters` | list   | conform formatter names → `formatters_by_ft` for each filetype  |
+| `linters`    | list   | nvim-lint linter names → `linters_by_ft` for each filetype      |
+| `dap`        | `true` | label only — "this language has a debugger" (nothing reads it)  |
+
+**What deliberately stays OUT of the registry:**
+
+- **Tool *config*** (as opposed to names): basedpyright `settings`, golines `--max-len`,
+  csharpier command, omnisharp handlers. These stay co-located in `conform.lua`'s
+  `formatters = {}` block and `lspconfig.lua`'s `vim.lsp.config(name, {...})` calls. The
+  registry *routes*; the consumer *configures*.
+- **DAP specs.** lazy.nvim must own DAP plugin specs, so they live in
+  `plugins/dap/adapters.lua`, never here. `dap = true` is just a label you keep in sync with
+  that file by hand.
+- **Pure LSP-only servers** (no formatter/linter/dap — e.g. graphql, terraformls, dartls,
+  tailwindcss, ltex_plus, emmet_language_server). Those are not "languages"; they stay in the
+  plain `extra_servers` list in `lspconfig.lua`. The registry is only for tooling-bearing
+  languages.
+
+**Filetypes are many-to-many — group entries by *uniform* tooling, not by language name.** An
+entry applies its `formatters` AND `linters` to *all* its `filetypes`. When a formatter/server
+spans several fts but the linters differ, **split into multiple entries**. Live example:
+prettierd formats js/ts/jsx/tsx but eslint_d must run only on plain js/ts (not the react fts),
+so there are two entries — `typescript` (`{ javascript, typescript }`, ts_ls + prettierd +
+eslint_d) and `typescriptreact` (`{ javascriptreact, typescriptreact }`, prettierd only). A
+server name only needs to appear once (`lsp_servers` dedups), so put `lsp = "ts_ls"` on just
+one of the pair.
+
+**Collision guard:** filetypes must be disjoint across entries for a given field. If two
+entries both set `formatters` (or both `linters`) for the same ft, `utils.by_ft` **asserts at
+startup** (loud error) instead of letting unspecified `pairs` order silently pick a winner and
+drop a tool.
+
+### Adding a language
+
+1. Add one entry to `lua/languages.lua` with only the fields it needs.
+2. Has a debugger? Add its adapter spec to `plugins/dap/adapters.lua` and set `dap = true`.
+3. Needs tool *config* (server settings, formatter args)? Add it co-located in
+   `conform.lua` / `lspconfig.lua` — NOT in the registry.
+4. Purely an LSP with no formatter/linter/dap? It does NOT belong here — add the server name
+   to `extra_servers` in `lspconfig.lua` instead.
+5. Verify (below).
+
+### Changing / removing a language
+
+Edit or delete its registry entry; the three consumers update automatically. If removing
+entirely, also remove the co-located bits (DAP spec, any tool-config overrides).
+
+### Verifying a registry change
+
+The resolved consumer tables must be exactly what you intend. Load the plugin headless and
+inspect:
+
+```sh
+nvim --headless "+lua require('lazy').load{plugins={'conform.nvim'}}; print(vim.inspect(require'conform'.formatters_by_ft))" +qa
+nvim --headless "+lua require('lazy').load{plugins={'mason-nvim-lint'}}; print(vim.inspect(require'lint'.linters_by_ft))" +qa
+```
+
+For a **behavior-preserving** edit, capture those *before* the change and diff after — or
+`vim.deep_equal` the resolved table against a hand-written expected table. The LSP server set
+is local to `lspconfig.lua`; to check it, stub `vim.lsp.enable` to capture its argument before
+force-loading `nvim-lspconfig`.
 
 ## Gotchas
 

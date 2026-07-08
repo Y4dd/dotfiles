@@ -36,33 +36,24 @@ return {
       callback = on_attach,
     })
 
-    local servers = {
-      "rust_analyzer",
-      "html",
-      "jsonls",
-      "cssls",
+    -- Pure LSP-only servers (no formatter/linter/dap). Servers tied to a
+    -- tooling-bearing language come from the registry (lua/languages.lua).
+    local extra_servers = {
       "graphql",
       "terraformls",
-      "bashls",
       "gitlab_ci_ls",
       "helm_ls",
       "nginx_language_server",
-      "taplo",
       "kotlin_language_server",
       "hls",
-      "basedpyright",
-      "gopls",
-      "lua_ls",
       "dartls",
       "tailwindcss",
       "ltex_plus",
       "tinymist",
       "nil_ls",
-      -- Custom
-      "ts_ls",
       "emmet_language_server",
-      "omnisharp",
     }
+    local servers = vim.list_extend(extra_servers, require("utils").lsp_servers(require "languages"))
 
     -- Custom config
     vim.lsp.config("ts_ls", {

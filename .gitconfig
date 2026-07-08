@@ -1,23 +1,41 @@
 [gpg]
 	format = ssh
+
 [gpg "ssh"]
 	program = /opt/1Password/op-ssh-sign
+
 [commit]
 	gpgsign = true
+
 [user]
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHDTn647iCKVgFeTPVO5pATUfWEBJVkamYDAF1ABYtfN
 	name = Amjad W.
 	email = amjadshomali60@gmail.com
+
 [core]
 	editor = nvim
+	pager = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
 [alias]
 	dotfiles = !git --git-dir=$HOME/.myconf/ --work-tree=$HOME
+
 [merge]
   tool = diffview
+  conflictStyle =  zdiff3
+
 [mergetool]
   prompt = false
   keepBackup = false
+
 [mergetoold "diffview"]
   cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+
 [init]
 	defaultBranch = main
+
+[delta]
+  line-numbers = true
+  navigate = true

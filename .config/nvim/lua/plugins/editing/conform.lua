@@ -5,26 +5,11 @@ return {
     "zapling/mason-conform.nvim",
   },
   opts = function()
+    local languages = require "languages"
+    local utils = require "utils"
     return {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        css = { "prettierd" },
-        html = { "prettierd" },
-        python = { "ruff" },
-        javascript = { "prettierd" },
-        typescript = { "prettierd" },
-        javascriptreact = { "prettierd" },
-        typescriptreact = { "prettierd" },
-        json = { "prettierd" },
-        yaml = { "prettierd" },
-        markdown = { "prettierd" },
-        bash = { "shfmt" },
-        sh = { "shfmt" },
-        go = { "gofumpt", "golines" },
-        rust = { "rustfmt" },
-        toml = { "taplo" },
-        cs = { "csharpier" },
-      },
+      -- All filetypes are routed by the registry (lua/languages.lua).
+      formatters_by_ft = utils.formatters_by_ft(languages),
 
       formatters = {
         golines = {

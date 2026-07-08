@@ -26,3 +26,8 @@ y = 0
 
 [terminal]
 shell = "fish"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
